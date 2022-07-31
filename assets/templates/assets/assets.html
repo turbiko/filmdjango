@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+<!-- Main Section -->
+<main class="projects">
+    <section class="hero-section text-center">
+        <div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>Search for <span>Assets</span></h2>
+            </div>
+
+            <div class="hero-section__search">
+                <form id='searchForm' class="form" action="{% url 'assets' %}" method="get">
+                    <div class="form__field">
+                        <label for="formInput#search">Search By Assets </label>
+                        <input class="input input--text" id="formInput#search" type="text" name="search_query"
+                            placeholder="Search by Asset Name" value="{{search_query}}" />
+                    </div>
+
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Search Result: PersonList -->
+    <section class="projectsList">
+        <div class="container">
+            <div class="grid grid--three">
+
+                {% for asset in assets %}
+                <div class="column">
+                    <div class="card project">
+                        <a href="{% url 'asset' asset.id %}" class="project">
+                            <img class="project__thumbnail" src="{{asset.imageURL}}" alt="Asset thumbnail" />
+                            <div class="card__body">
+                                <h3 class="project__title">{{asset.title}}</h3>
+                                <p><a class="project__author" href="{% url 'user-profile' asset.owner.id %}">By
+                                        {{asset.owner.name}}</a>
+                                </p>
+                                <p class="project--rating">
+                                    <span style="font-weight: bold;">{{asset.vote_ratio}}%</span> Positive
+                                    Feedback ({{asset.vote_total}}) Vote{{asset.vote_total|pluralize:"s"}}
+                                </p>
+                                <div class="project__tags">
+                                    {% for tag in asset.tags.all %}
+                                    <span class="tag tag--pill tag--main">
+                                        <small>{{tag}}</small>
+                                    </span>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    {% include 'pagination.html' with queryset=projects custom_range=custom_range %}
+
+</main>
+
+
+
+
+{% endblock %}
