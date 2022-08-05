@@ -14,6 +14,7 @@ def assets(request):
 
     context = {'assets': assets,
                'search_query': search_query, 'custom_range': custom_range}
+    print(context)
     return render(request, 'assets/assets.html', context)
 
 

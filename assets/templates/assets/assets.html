@@ -38,10 +38,6 @@
                                 <p><a class="project__author" href="{% url 'user-profile' asset.owner.id %}">By
                                         {{asset.owner.name}}</a>
                                 </p>
-                                <p class="project--rating">
-                                    <span style="font-weight: bold;">{{asset.vote_ratio}}%</span> Positive
-                                    Feedback ({{asset.vote_total}}) Vote{{asset.vote_total|pluralize:"s"}}
-                                </p>
                                 <div class="project__tags">
                                     {% for tag in asset.tags.all %}
                                     <span class="tag tag--pill tag--main">

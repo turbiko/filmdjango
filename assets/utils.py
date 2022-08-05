@@ -1,12 +1,18 @@
+from datetime import datetime
+
 from .models import Asset, Tag
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
+
 
 
 def paginateAssets(request, assets, results):
 
     page = request.GET.get('page')
     paginator = Paginator(assets, results)
+    print(paginator)
 
     try:
         projects = paginator.page(page)
